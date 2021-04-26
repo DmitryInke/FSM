@@ -1,9 +1,17 @@
 import java.util.Arrays;
 import java.util.List;
-
+import ac.il.afeka.fsm.NDFSM;
 import ac.il.afeka.Submission.Submission;
 
+
+
 public class Main implements Submission, Assignment3 {
+	public static void main(String[] arg) throws Exception{
+		Main myprog = new Main();
+		//System.out.println(myprog.convert("0/a/0,,0/0/"));
+		System.out.println(myprog.convert("1 2/0 1/1,0,1;1,1,2;2,0,2;2,1,1/1/2"));
+		//System.out.println(myprog.convert("0/a/0,,0;0,a,0/0/0"));
+	}
 
 	@Override
 	public List<String> submittingStudentIds() {
@@ -11,12 +19,8 @@ public class Main implements Submission, Assignment3 {
 	}
 
 	@Override
-	public String convert(String ndfsm) throws Exception {
-		
-		// TODO return an encoding of a deterministic finite state machines that accepts
-		// the same language as ndfsm.
-		
-		return null;
+	public  String convert(String ndfsm) throws Exception {
+		return new NDFSM(ndfsm).toDFSM().encode();
 	}
 
 }
