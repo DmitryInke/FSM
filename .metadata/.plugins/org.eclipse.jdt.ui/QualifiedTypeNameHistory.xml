@@ -6,6 +6,7 @@
 <fullyQualifiedTypeName name="ac.il.afeka.fsm.IdentifiedState"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="ac.il.afeka.fsm.Transition"/>
-<fullyQualifiedTypeName name="ac.il.afeka.fsm.DFSM"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="ac.il.afeka.fsm.NDFSM"/>
+<fullyQualifiedTypeName name="ac.il.afeka.fsm.DFSM"/>
 </qualifiedTypeNameHistroy>

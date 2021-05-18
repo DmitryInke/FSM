@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -338,18 +337,15 @@ public class NDFSM {
 	public DFSM toDFSM() throws Exception {
 		boolean acceptingState = false;
 		Set<State> initialStates = eps(initialState);
-		Iterator<State> iter = initialStates.iterator();
 		Set<State> acceptingStates = new HashSet<>();
 		List<Set<State>> activeStates = new LinkedList<>();
 		Set<Transition> newTransitions = new HashSet<>();
 		Set<State> allStates = new HashSet<>();
 		Map<Set<State>, IdentifiedState> map = new HashMap<>();
 		activeStates.add(initialStates);
-		int i = 0;
-		if (iter.hasNext())
-			i = Integer.parseInt(iter.next().encode());
+		int i = 1;
 
-		map.put(initialStates, new IdentifiedState(i));
+		map.put(initialStates, new IdentifiedState(0));
 		while (!activeStates.isEmpty()) {
 			for (Character c : alphabet) {
 				Set<State> newState = new HashSet<>();
@@ -366,8 +362,7 @@ public class NDFSM {
 				}
 				if (!map.containsKey(newState)) {
 					activeStates.add(newState);
-					map.put(newState, new IdentifiedState(++i));
-
+					map.put(newState, new IdentifiedState(i++));
 				}
 				if (acceptingState)
 					acceptingStates.add((State) map.get(activeStates.get(0)));
@@ -384,18 +379,22 @@ public class NDFSM {
 	private Set<State> eps(State theState) {
 		Set<State> eps = new HashSet<>();
 		Set<State> reachable = new HashSet<>();
-
 		reachable.add(theState);
+		boolean flag;
+		do {
+			flag = false;
+			for (State s : reachable) {
+				eps.addAll(reachable);
+				reachable = new HashSet<>();
 
-		for (State s : reachable) {
-			eps.addAll(reachable);
-			reachable = new HashSet<>();
-			for (State e : transitions.at(s, Alphabet.EPSILON)) {
-				if (!eps.contains(e)) {
-					reachable.add(e);
-				}
+				for (State e : transitions.at(s, Alphabet.EPSILON))
+					if (!eps.contains(e)) {
+						reachable.add(e);
+						flag = true;
+						break;
+					}
 			}
-		}
+		} while (flag);
 		return eps;
 	}
 }

@@ -1,0 +1,28 @@
+import java.util.Arrays;
+import java.util.List;
+import ac.il.afeka.fsm.NDFSM;
+import ac.il.afeka.Submission.Submission;
+
+
+
+public class Main implements Submission, Assignment3 {
+	public static void main(String[] arg) throws Exception{
+		Main myprog = new Main();
+		System.out.println(myprog.convert("1 2 3 4 5 6 7 8/a b c/1,b,1;1,,2;2,b,3;2,b,5;2,,7;3,a,4;3,c,4;4,c,2;4,c,7;5,a,6;5,b,6;6,c,2;6,c,7;6,,2;7,b,8/1/8"));
+		System.out.println(myprog.convert("1 2 3 4/a b/1,a,1;1,b,1;1,a,2;2,a,3;2,b,3;3,a,4;3,b,4/1/4"));
+		System.out.println(myprog.convert("0/a/0,,0/0/"));
+		System.out.println(myprog.convert("1 2/0 1/1,0,1;1,1,2;2,0,2;2,1,1/1/2"));
+		System.out.println(myprog.convert("0/a/0,,0;0,a,0/0/0"));
+	}
+
+	@Override
+	public List<String> submittingStudentIds() {
+		return Arrays.asList("336228317", "209151380");
+	}
+
+	@Override
+	public  String convert(String ndfsm) throws Exception {
+		return new NDFSM(ndfsm).toDFSM().encode();
+	}
+
+}
